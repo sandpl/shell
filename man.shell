@@ -1,0 +1,37 @@
+#!/bin/sh
+
+#echo -e 可以对echo的内容进行一定的设置
+echo -e "\e[1;30m zhangjie \e[1;0m"
+
+echo -e "\e[1;30m" "zhangjie" $(tput sgr0) #将屏幕终端设置回归初始化的颜色
+
+
+declare-A ass_Array1 #声明关联数组
+ass_Array1[index1]=pear #对关联数组进行赋值
+
+
+
+#!/bin/bash
+
+
+resetem=$(tput sgr0)
+declare -A sshArray
+i=0
+numbers=""
+for script_file in `ls -I "test.sh" ./`
+do
+    echo -e "\e[1;35m" "the script:" ${i} '==>' ${resetem} ${script_file}
+    sshArray[$i]=${script_file}
+    numbers="${numbers} | ${i}"
+    i=$((i+1))
+done
+
+
+while true
+do
+    read -p " please input a number [ ${numbers} ]" execshell
+    if [[ ! ${execshell} =~ ^[0-9]+ ]];then
+        exit 0
+    fi
+    /bin/sh ./${sshArray[$execshell]}
+done
